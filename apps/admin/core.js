@@ -21,8 +21,8 @@ SC.AutoAdmin = SC.Object.create(
   // of your model data.  You can also set a data source on this store to
   // connect to a backend server.  The default setup below connects the store
   // to any fixtures you define.
-  store: SC.Store.create().from(SC.Record.fixtures)
+  store: SC.Store.create().from(SC.Record.fixtures),
   
-  // TODO: Add global constants or singleton objects needed by your app here.
+  currentView: null
 
 }) ;

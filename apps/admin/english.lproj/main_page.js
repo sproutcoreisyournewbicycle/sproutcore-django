@@ -9,11 +9,32 @@
 SC.AutoAdmin.mainPage = SC.Page.design({
 
   mainPane: SC.MainPane.design({
-    childViews: 'splitView toolbarView'.w(),
+    childViews: 'splitView'.w(),
     
-    labelView: SC.LabelView.design({
-      layout: { centerX: 0, centerY: 0, width: 100, height: 18 },
-      tagName: "h1", value: "Hello World"
+    splitView: SC.SplitView.design({
+      
+      layout: { left: 0, top: 0, right: 0, bottom: 0 },
+      
+      defaultThickness: 200,
+      
+      topLeftView: SC.ScrollView.design({
+        
+        hasHorizontalScroller: NO, // disable horizontal scrolling
+        contentView: SC.SourceListView.design({
+          contentBinding: "SC.AutoAdmin.modelListController.arrangedObjects",
+          selectionBinding: "SC.AutoAdmin.modelListController.selection",
+          contentValueKey: "displayName",
+          hasContentIcon: NO,
+          // contentIconKey:  "targetIcon",
+          
+          action: 'selectTarget',
+          target: 'SC.AutoAdmin'
+        })
+      }),
+      
+      bottomRightView: SC.ContainerView.design({
+        nowShowingBinding: "SC.AutoAdmin.currentView"
+      })
     })
   })
 
