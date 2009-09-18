@@ -1,3 +1,4 @@
+/*globals Django */
 /** @private */
 SC.RecordAttribute.registerTransform(Django.AutoField, {
   
@@ -50,7 +51,9 @@ SC.RecordAttribute.registerTransform(Django.CommaSeparatedIntegerField, {
   
 });
 
-Django.DATE_FIELD_REGEXP = /([0-9]{4})(-([0-9]{2})(-([0-9]{2})/ ;
+// TODO: Check to make sure that this works. I added in some )'s to fix
+// a syntax error, I don't know if that'll stop it from working. GeoffreyD
+Django.DATE_FIELD_REGEXP = /([0-9]{4})(-([0-9]{2})(-([0-9]{2})))/ ;
 
 /** @private */
 SC.RecordAttribute.registerTransform(Django.DateField, {
@@ -371,7 +374,7 @@ SC.RecordAttribute.registerTransform(Django.TimeField, {
     this._dates[date.getTime()] = ret = "%@:%@:%@".fmt(
       zp(date.getHours()),
       zp(date.getMinutes()),
-      zp(date.getSeconds()),
+      zp(date.getSeconds())
     );
     
     return ret ;
@@ -406,7 +409,7 @@ SC.RecordAttribute.registerTransform(Django.XMLField, {
     if (!(typeof obj === SC.T_STRING) && !SC.none(obj) && obj.toString) {
       obj = obj.toString();
     }
-    return obj ? Danjgo.parseXML(obj) : '' ;
+    return obj ? Django.parseXML(obj) : '' ;
   }
   
 });

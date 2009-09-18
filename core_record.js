@@ -4,23 +4,16 @@
 //            Portions ©2008-2009 Apple Inc. All rights reserved.
 // License:   Licened under MIT license (see license.js)
 // ==========================================================================
+/*globals Django */
 
-/** @namespace
-
-  My cool new app.  Describe your application.
+SC.mixin(SC.AutoAdmin, {
   
-  @extends SC.Object
-*/
-SC.AutoAdmin = SC.Object.create(
-  /** @scope Django-admin.prototype */ {
-
-  NAMESPACE: 'SC.AutoAdmin',
-  VERSION: '0.1.0',
+  registeredModels: [],
   
-  // Will become.
-  // store: SC.Store.create().from(Django.DataSource),
-  store: SC.Store.create().from(SC.Record.fixtures),
+  registerModel: function(model) {
+    this.propertyWillChange('registeredModels');
+    this.registeredModels.push(model);
+    this.propertyDidChange('registeredModels');
+  }
   
-  currentView: null
-
-}) ;
+});
