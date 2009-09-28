@@ -1,4 +1,5 @@
 Django = SC.Object.extend() ;
+AppEngine = SC.Object.extend() ;
 
 Django.Field = SC.Object.extend() ;
 
