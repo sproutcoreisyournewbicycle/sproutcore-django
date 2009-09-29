@@ -1,18 +1,4 @@
-/*globals AppEngine */
-
-/* TODO's
-  ListProperty
-  StringListProperty
-  ReferenceProperty
-  SelfReferenceProperty
-  UserProperty
-  BlobProperty
-  CategoryProperty
-  GeoPtProperty
-  IMProperty
-  PhoneNumberProperty	
-  PostalAddressProperty
-*/
+/*globals AppEngine zp */
 
 /** @private */
 SC.RecordAttribute.registerTransform(AppEngine.BooleanProperty, {
@@ -24,11 +10,41 @@ SC.RecordAttribute.registerTransform(AppEngine.BooleanProperty, {
   
 });
 
+SC.RecordAttribute.registerTransform(AppEngine.BlobProperty, {
+  /** @private - 
+    convert a Blob Property to a string 
+    allow null through as that will be checked separately
+  */
+  to: function(obj) {
+    if (!(typeof obj === SC.T_STRING) && !SC.none(obj) && obj.toString) {
+      obj = obj.toString();
+    }
+    return obj;
+  }
+});
+
+// TODO: Needs to be constrained to 500 bytes
 /** @private */
 SC.RecordAttribute.registerTransform(AppEngine.ByteStringProperty, {
   
   /** @private - 
     convert a char Property to a string 
+    allow null through as that will be checked separately
+  */
+  to: function(obj) {
+    if (!(typeof obj === SC.T_STRING) && !SC.none(obj) && obj.toString) {
+      obj = obj.toString();
+    }
+    return obj;
+  }
+  
+});
+
+/** @private */
+SC.RecordAttribute.registerTransform(AppEngine.CategoryProperty, {
+  
+  /** @private - 
+    convert a Category Property to a string 
     allow null through as that will be checked separately
   */
   to: function(obj) {
@@ -191,6 +207,18 @@ SC.RecordAttribute.registerTransform(AppEngine.FloatProperty, {
   
 });
 
+SC.RecordAttribute.registerTransform(AppEngine.GeoPtProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.IMProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
+});
+
 /** @private */
 SC.RecordAttribute.registerTransform(AppEngine.IntegerProperty, {
   
@@ -217,6 +245,38 @@ SC.RecordAttribute.registerTransform(AppEngine.LinkProperty, {
   
 });
 
+SC.RecordAttribute.registerTransform(AppEngine.ListProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.PhoneNumberProperty, {
+  /** @private - 
+    convert a Phone Number Property to a string 
+    allow null through as that will be checked separately
+  */
+  to: function(obj) {
+    if (!(typeof obj === SC.T_STRING) && !SC.none(obj) && obj.toString) {
+      obj = obj.toString();
+    }
+    return obj;
+  }
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.PostalAddressProperty, {
+  /** @private - 
+    convert an Address Property to a string 
+    allow null through as that will be checked separately
+  */
+  to: function(obj) {
+    if (!(typeof obj === SC.T_STRING) && !SC.none(obj) && obj.toString) {
+      obj = obj.toString();
+    }
+    return obj;
+  }
+});
+
 /** @private */
 SC.RecordAttribute.registerTransform(AppEngine.RatingProperty, {
   
@@ -225,6 +285,18 @@ SC.RecordAttribute.registerTransform(AppEngine.RatingProperty, {
     return SC.none(obj) ? null : Number(obj) ;
   }
   
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.ReferenceProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.SelfReferenceProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
 });
 
 /** @private */
@@ -241,6 +313,12 @@ SC.RecordAttribute.registerTransform(AppEngine.StringProperty, {
     return obj;
   }
   
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.StringListProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
 });
 
 /** @private */
@@ -269,7 +347,7 @@ SC.RecordAttribute.registerTransform(AppEngine.TimeProperty, {
   to: function(str, attr) {
     var ret ;
     
-    var d      = str.match(Django.TIME_FIELD_REGEXP),
+    var d      = str.match(AppEngine.TIME_FIELD_REGEXP),
         offset = 0,
         date   = new Date(0, 0, 1),
         time ;
@@ -297,4 +375,10 @@ SC.RecordAttribute.registerTransform(AppEngine.TimeProperty, {
     return ret ;
   }
   
+});
+
+SC.RecordAttribute.registerTransform(AppEngine.UserProperty, {
+  to: function(str, attr) {
+    throw("Not Implemented");
+  }
 });
