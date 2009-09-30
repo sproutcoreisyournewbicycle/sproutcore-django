@@ -1,5 +1,4 @@
 Django = SC.Object.extend() ;
-AppEngine = SC.Object.extend() ;
 
 Django.Field = SC.Object.extend() ;
 
@@ -51,3 +50,31 @@ Django.parseXML = function(text) {
         return request.responseXML;
     }
 };
+
+AppEngine = SC.Object.extend() ;
+
+AppEngine.Field = SC.Object.extend() ;
+
+AppEngine.BooleanProperty        = AppEngine.Field.extend() ;
+AppEngine.BlobProperty           = AppEngine.Field.extend() ;
+AppEngine.ByteStringProperty     = AppEngine.Field.extend() ;
+AppEngine.CategoryProperty       = AppEngine.Field.extend() ;
+AppEngine.DateProperty           = AppEngine.Field.extend() ;
+AppEngine.DateTimeProperty       = AppEngine.Field.extend() ;
+AppEngine.EmailProperty          = AppEngine.Field.extend() ;
+AppEngine.FloatProperty          = AppEngine.Field.extend() ;
+AppEngine.GeoPtProperty          = AppEngine.Field.extend() ;
+AppEngine.IMProperty             = AppEngine.Field.extend() ;
+AppEngine.IntegerProperty        = AppEngine.Field.extend() ;
+AppEngine.LinkProperty           = AppEngine.Field.extend() ;
+AppEngine.ListProperty           = AppEngine.Field.extend() ;
+AppEngine.PhoneNumberProperty    = AppEngine.Field.extend() ;
+AppEngine.PostalAddressProperty  = AppEngine.Field.extend() ;
+AppEngine.RatingProperty         = AppEngine.Field.extend() ;
+AppEngine.ReferenceProperty      = AppEngine.Field.extend() ;
+AppEngine.SelfReferenceProperty  = AppEngine.Field.extend() ;
+AppEngine.StringProperty         = AppEngine.Field.extend() ;
+AppEngine.StringListProperty     = AppEngine.Field.extend() ;
+AppEngine.TextProperty           = AppEngine.Field.extend() ;
+AppEngine.TimeProperty           = AppEngine.Field.extend() ;
+AppEngine.UserProperty           = AppEngine.Field.extend() ;
