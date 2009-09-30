@@ -72,7 +72,8 @@ Django.DataSource = SC.DataSource.extend({
     SC.Request.postUrl(url).set('isJSON', YES)
       .notify(this, this._didCreateRecord, {
         store: store,
-        storeKey: storeKey
+        storeKey: storeKey,
+        callbacks: params
       }).send(dataHash);
 
     return YES ;
@@ -88,8 +89,14 @@ Django.DataSource = SC.DataSource.extend({
       record = response.fields;
       record.pk = response.pk;
       store.dataSourceDidComplete(storeKey, record, record.pk);
+      if(params.callbacks && params.callbacks.successCallback){
+        CoreTasks.invokeCallback(params.callbacks.successCallback);
+      }
     }else{
       store.dataSourceDidError(storeKey, record);
+      if(params.callbacks && params.callbacks.failureCallback){
+        CoreTasks.invokeCallback(params.callbacks.failureCallback);
+      }
     }
   },
 
