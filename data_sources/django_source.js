@@ -6,7 +6,7 @@
 */
 // Django = SC.Object.create() ;
 
-Django.urlPrefix = null;
+Django.urlPrefix = 'api/models';
 
 /**
   GET total number of objects
@@ -22,8 +22,8 @@ Django.getLengthURL = "/%@/%@/%@/length/" ;
     length (optional, takes: integer, default: <length of objects>)
   /<url_prefix>/<app_label>/<model_name>/range/?order_by=pk&start=0&length=10
 */
-Django.getRangeURL = "/%@/%@/%@/range/?start=%@&length=%@" ;
-Django.getAllURL = "/%@/%@/%@/range/" ;
+Django.getRangeURL = "/%@/%@/%@/list/?start=%@&length=%@" ;
+Django.getAllURL = "/%@/%@/%@/list/" ;
 
 /**
   GET, DELETE one or more objects by their pks
@@ -67,7 +67,7 @@ Django.DataSource = SC.DataSource.extend({
         recordTypePath  = recordType.modelClass.split("."),
         appName         = recordTypePath[0],
         modelName       = recordTypePath[1];
-    var url = Django.postURL.fmt('api', appName, modelName);
+    var url = Django.postURL.fmt(Django.urlPrefix, appName, modelName);
 
     SC.Request.postUrl(url).set('isJSON', YES)
       .notify(this, this._didCreateRecord, {
@@ -107,7 +107,7 @@ Django.DataSource = SC.DataSource.extend({
         recordTypePath  = recordType.modelClass.split("."),
         appName         = recordTypePath[0],
         modelName       = recordTypePath[1];
-    var url = Django.getURL.fmt('api', appName, modelName, id);
+    var url = Django.getURL.fmt(Django.urlPrefix, appName, modelName, id);
 
     SC.Request.getUrl(url).set('isJSON', YES)
       .notify(this, this._didRetrieveRecord, {
@@ -143,7 +143,7 @@ Django.DataSource = SC.DataSource.extend({
         recordTypePath  = recordType.modelClass.split("."),
         appName         = recordTypePath[0],
         modelName       = recordTypePath[1];
-    var url = Django.putURL.fmt('api', appName, modelName, recordId);
+    var url = Django.putURL.fmt(Django.urlPrefix, appName, modelName, recordId);
 
     SC.Request.putUrl(url).set('isJSON', YES)
       .notify(this, this._didCreateRecord, {
@@ -176,7 +176,7 @@ Django.DataSource = SC.DataSource.extend({
         recordTypePath = recordType.modelClass.split("."),
         appName = recordTypePath[0],
         modelName = recordTypePath[1];
-    var url = Django.deleteURL.fmt('api', appName, modelName, recordId);
+    var url = Django.deleteURL.fmt(Django.urlPrefix, appName, modelName, recordId);
 
     SC.Request.deleteUrl(url).set('isJSON', YES)
       .notify(this, this._didDestroyRecord, {
@@ -212,7 +212,7 @@ Django.DataSource = SC.DataSource.extend({
           appName = recordTypePath[0],
           modelName = recordTypePath[1];
 
-      var url = Django.getAllURL.fmt('api', appName, modelName) ;
+      var url = Django.getAllURL.fmt(Django.urlPrefix, appName, modelName) ;
       SC.Request.getUrl(url).set('isJSON', YES)
         .notify(this, this._didFetchRecords, { 
            query: query, store: store
