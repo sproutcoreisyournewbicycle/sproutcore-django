@@ -121,7 +121,7 @@ Django.DataSource = SC.DataSource.extend({
     console.log("_didRetrieveRecord");
     var store     = params.store,
         storeKey  = params.storeKey,
-        response  = request.get('response'),
+        response  = request.get('response')[0],
         record;
     // normal: load into store...response == dataHash
     if (SC.$ok(response)) {
@@ -229,25 +229,29 @@ Django.DataSource = SC.DataSource.extend({
         response    = request.get('response');
 
     if (SC.$ok(response)) {
-      var records = [];
-
-      response.forEach(function(obj) {
-        var new_record = obj.fields;
-        new_record.pk = obj.pk;
-        records.push(new_record);
-      });
-
-      store.loadRecords(query.recordType, records);
-      store.dataSourceDidFetchQuery(query);
+      this._loadRecords(store, query, response);
       if (qParams && qParams.successCallback) {
         CoreTasks.invokeCallback(qParams.successCallback);
       }
     } else {
-      store.dataSourceDidErrorQuery(query, records) ;
+      store.dataSourceDidErrorQuery(query, response) ;
       if (qParams && qParams.failureCallback) {
         CoreTasks.invokeCallback(qParams.failureCallback);
       }
     }
+  },
+  
+  _loadRecords: function(store, query, json) {
+    var records = [] ;
+    
+    json.forEach(function(obj) {
+      var new_record = obj.fields ;
+      new_record.pk = obj.pk ;
+      records.push(new_record) ;
+    }) ;
+    
+    store.loadRecords(query.recordType, records) ;
+    store.dataSourceDidFetchQuery(query) ;
   }
 
 });
